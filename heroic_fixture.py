@@ -10,8 +10,9 @@ def superhero_data():
 
     return data_heroes
 
+# хранилище с валидными значениями
 @pytest.fixture(scope='module')
-def test_parameters():
+def equivalence_values():
 
     return [
         ('Male', True, 728),
