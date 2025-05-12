@@ -1,14 +1,14 @@
 from get_superhero_input_data_validator import validate_data, filter_heroes
 
 def parse_height(height_str):
-
+    # функция преобразования высоты в корректный формат
     try:
         height_value, unit = height_str.split()
         height_value = float(height_value)
 
-        if "cm" in unit.lower():
+        if 'cm' in unit.lower():
             return height_value  # уже в см
-        elif "m" in unit.lower():
+        elif 'm' in unit.lower():
             return height_value * 100  # перевод метров в см
         else:
             return 0  # если единицы измерения некорректны
@@ -17,7 +17,7 @@ def parse_height(height_str):
 
 
 def get_tallest_superhero(gender: str, work: bool, data_heroes: list):
-
+    # функция поиска самого высокого супер героя по заданным параметрам
     # валидация данных
     validate_data(gender, work, data_heroes)
 
@@ -29,7 +29,7 @@ def get_tallest_superhero(gender: str, work: bool, data_heroes: list):
 
     for hero in filtered_heroes:
         # парсинг высоты
-        height_str = hero["appearance"]["height"][1]
+        height_str = hero['appearance']['height'][1]
         height_parsed = parse_height(height_str)
 
         # обновление максимальной высоты
@@ -39,7 +39,7 @@ def get_tallest_superhero(gender: str, work: bool, data_heroes: list):
 
     # добавление высоты в результат
     if tallest_hero:
-        tallest_hero["height_in_cm"] = max_height
+        tallest_hero['height_in_cm'] = max_height
 
     return tallest_hero
 

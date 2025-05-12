@@ -22,8 +22,7 @@ def equivalence_values():
     ]
 
 # хранилище для пограничного тестирования с превышающим значением (+1 см)
-def get_boundary_values_higher():
-    return {
+get_boundary_values_higher = {
         ("Male", True): {"id": 9989, "name": "Bill", "appearance": {"gender": "Male", "height": ["7'2", "30481 cm"]},
          "work": {"occupation": "-", "base": "Gravity Falls"}},
         ("Male", False): {"id": 9999, "name": "Pikachu", "appearance": {"gender": "Male", "height": ["7'2", "1521 cm"]},
@@ -37,7 +36,7 @@ def get_boundary_values_higher():
 
 @pytest.fixture(scope='module')
 def boundary_values_higher(superhero_data):
-    boundary_heroes = list(get_boundary_values_higher().values())
+    boundary_heroes = list(get_boundary_values_higher.values())
 
     return superhero_data + boundary_heroes
 

@@ -5,6 +5,7 @@ from get_superhero import get_tallest_superhero
 from heroic_fixture import *
 
 def test_equivalence_partitioning(equivalence_values, superhero_data):
+    # проверка функции с валидными данными
     errors = []
 
     for gender, work, expected_id in equivalence_values:
@@ -21,9 +22,10 @@ def test_equivalence_partitioning(equivalence_values, superhero_data):
 
 
 def test_boundary_values_higher(equivalence_values, boundary_values_higher):
+    # проверка функции с данными превышающие значение (выше)
     errors = []
 
-    expected_heroes = heroic_fixture.get_boundary_values_higher()
+    expected_heroes = heroic_fixture.get_boundary_values_higher
     for gender, work, _ in equivalence_values:
         result = get_tallest_superhero(gender, work, boundary_values_higher)
 
@@ -41,6 +43,7 @@ def test_boundary_values_higher(equivalence_values, boundary_values_higher):
 
 
 def test_boundary_values_lower(equivalence_values, boundary_values_lower):
+    # проверка функции с данными меньшего значения
     errors = []
 
     for gender, work, expected_id in equivalence_values:
@@ -62,7 +65,7 @@ def test_negative():
         get_tallest_superhero('Male', True, [])
         assert False, 'Ожидалось исключение ValueError, но оно не было вызвано'
     except ValueError as e:
-        assert str(e) == 'Нет данных о героях', f'неправильное сообщение об ошибке: {str(e)}'
+        assert str(e) == 'Нет данных о героях'
 
     # данные без необходимых ключей
     incomplete_data = [
@@ -76,21 +79,19 @@ def test_negative():
         assert str(e) == "'Отсутствуют необходимые ключи в данных'"
 
     # неверное значение gender
-    invalid_gender_data = [
-        {'id': 1, 'name': 'Hero1', 'appearance': {'gender': 'Unknown', 'height': ["6'0", '183 cm']}, 'work': {'base': '-' }},
-    ]
+    invalid_gender_data = [{'id': 1, 'name': 'Hero1', 'appearance': {'gender': 'Unknown', 'height': ['6''0', '183 cm']}, 'work': {'base': '-' }},]
     result = get_tallest_superhero('Unknown', True, invalid_gender_data)
     assert result is None, 'Функция должна вернуть None для неверного gender'
 
     # неверное значение work
     invalid_work_data = [
-        {'id': 1, 'name': 'Hero1', 'appearance': {'gender': 'Male', 'height': ["6'0", '183 cm']}, 'work': {'base': 'Invalid'}},
+        {'id': 1, 'name': 'Hero1', 'appearance': {'gender': 'Male', 'height': ['6''0', '183 cm']}, 'work': {'base': 'Invalid'}},
     ]
     try:
         get_tallest_superhero('Male', 'NotBoolean', invalid_work_data)
         assert False, 'Ожидалось исключение TypeError, но оно не было вызвано'
     except TypeError as e:
-        assert str(e) == "Параметр 'work' должен быть типа bool"
+        assert str(e) == 'Параметр work должен быть типа bool'
     assert result is None, 'Функция должна вернуть None для неверного work'
 
     # некорректный формат роста
